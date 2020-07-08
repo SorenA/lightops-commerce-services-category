@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backends", "Backends", "{AF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightOps.Commerce.Services.Category.Backends.InMemory", "src\LightOps.Commerce.Services.Category.Backends.InMemory\LightOps.Commerce.Services.Category.Backends.InMemory.csproj", "{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{84A721D7-6CE8-464A-9F80-D7079C5EB207}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CategoryService", "samples\Sample.CategoryService\Sample.CategoryService.csproj", "{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +27,17 @@ Global
 		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D} = {AFCB9C70-D10A-433F-A7D1-EC3A0408A5C9}
+		{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8} = {84A721D7-6CE8-464A-9F80-D7079C5EB207}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFE582BE-4857-48DF-82D7-DAA1EF61F3BD}
