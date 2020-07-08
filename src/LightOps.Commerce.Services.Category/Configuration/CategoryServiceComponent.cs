@@ -4,6 +4,7 @@ using LightOps.Commerce.Services.Category.Api.Models;
 using LightOps.Commerce.Services.Category.Api.Queries;
 using LightOps.Commerce.Services.Category.Api.QueryHandlers;
 using LightOps.Commerce.Services.Category.Api.Services;
+using LightOps.Commerce.Services.Category.Domain.Mappers.V1;
 using LightOps.Commerce.Services.Category.Domain.Services;
 using LightOps.CQRS.Api.Queries;
 using LightOps.DependencyInjection.Api.Configuration;
@@ -21,6 +22,7 @@ namespace LightOps.Commerce.Services.Category.Configuration
         {
             return new List<ServiceRegistration>()
                 .Union(_services.Values)
+                .Union(_mappers.Values)
                 .Union(_queryHandlers.Values)
                 .ToList();
         }
@@ -52,6 +54,25 @@ namespace LightOps.Commerce.Services.Category.Configuration
             return this;
         }
         #endregion Services
+
+        #region Mappers
+        internal enum Mappers
+        {
+            ProtoCategoryMapperV1,
+        }
+
+        private readonly Dictionary<Mappers, ServiceRegistration> _mappers = new Dictionary<Mappers, ServiceRegistration>
+        {
+            [Mappers.ProtoCategoryMapperV1] = ServiceRegistration
+                .Transient<IMapper<ICategory, Proto.Services.Category.V1.ProtoCategory>, ProtoCategoryMapper>(),
+        };
+
+        public ICategoryServiceComponent OverrideProtoCategoryMapperV1<T>() where T : IMapper<ICategory, Proto.Services.Category.V1.ProtoCategory>
+        {
+            _mappers[Mappers.ProtoCategoryMapperV1].ImplementationType = typeof(T);
+            return this;
+        }
+        #endregion Mappers
 
         #region Query Handlers
         internal enum QueryHandlers

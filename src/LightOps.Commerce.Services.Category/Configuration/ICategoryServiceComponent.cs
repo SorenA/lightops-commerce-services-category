@@ -12,6 +12,10 @@ namespace LightOps.Commerce.Services.Category.Configuration
         ICategoryServiceComponent OverrideCategoryService<T>() where T : ICategoryService;
         #endregion Services
 
+        #region Mappers
+        ICategoryServiceComponent OverrideProtoCategoryMapperV1<T>() where T : IMapper<ICategory, Proto.Services.Category.V1.ProtoCategory>;
+        #endregion Mappers
+
         #region Query Handlers
         ICategoryServiceComponent OverrideCheckCategoryHealthQueryHandler<T>() where T : ICheckCategoryHealthQueryHandler;
         ICategoryServiceComponent OverrideFetchCategoriesByParentIdQueryHandler<T>() where T : IFetchCategoriesByParentIdQueryHandler;
