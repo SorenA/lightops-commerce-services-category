@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightOps.Commerce.Services.Category", "src\LightOps.Commerce.Services.Category\LightOps.Commerce.Services.Category.csproj", "{AF7801FB-C950-47C2-B981-499D2342554B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backends", "Backends", "{AFCB9C70-D10A-433F-A7D1-EC3A0408A5C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightOps.Commerce.Services.Category.Backends.InMemory", "src\LightOps.Commerce.Services.Category.Backends.InMemory\LightOps.Commerce.Services.Category.Backends.InMemory.csproj", "{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{AF7801FB-C950-47C2-B981-499D2342554B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF7801FB-C950-47C2-B981-499D2342554B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF7801FB-C950-47C2-B981-499D2342554B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D} = {AFCB9C70-D10A-433F-A7D1-EC3A0408A5C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EFE582BE-4857-48DF-82D7-DAA1EF61F3BD}
