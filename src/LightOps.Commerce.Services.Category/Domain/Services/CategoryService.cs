@@ -32,6 +32,22 @@ namespace LightOps.Commerce.Services.Category.Domain.Services
             });
         }
 
+        public Task<IList<ICategory>> GetByIdAsync(IList<string> ids)
+        {
+            return _queryDispatcher.DispatchAsync<FetchCategoriesByIdQuery, IList<ICategory>>(new FetchCategoriesByIdQuery
+            {
+                Ids = ids,
+            });
+        }
+
+        public Task<IList<ICategory>> GetByHandleAsync(IList<string> handles)
+        {
+            return _queryDispatcher.DispatchAsync<FetchCategoriesByHandleQuery, IList<ICategory>>(new FetchCategoriesByHandleQuery
+            {
+                Handles = handles,
+            });
+        }
+
         public Task<IList<ICategory>> GetByRootAsync()
         {
             return _queryDispatcher.DispatchAsync<FetchCategoriesByRootQuery, IList<ICategory>>(new FetchCategoriesByRootQuery());

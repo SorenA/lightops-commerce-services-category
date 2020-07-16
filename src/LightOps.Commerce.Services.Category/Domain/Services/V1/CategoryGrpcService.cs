@@ -49,6 +49,28 @@ namespace LightOps.Commerce.Services.Category.Domain.Services.V1
             return result;
         }
 
+        public override async Task<GetCategoriesByIdResponse> GetCategoriesById(GetCategoriesByIdRequest request, ServerCallContext context)
+        {
+            var entities = await _categoryService.GetByIdAsync(request.Ids);
+            var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
+
+            var result = new GetCategoriesByIdResponse();
+            result.Categories.AddRange(protoEntities);
+
+            return result;
+        }
+
+        public override async Task<GetCategoriesByHandleResponse> GetCategoriesByHandle(GetCategoriesByHandleRequest request, ServerCallContext context)
+        {
+            var entities = await _categoryService.GetByHandleAsync(request.Handles);
+            var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
+
+            var result = new GetCategoriesByHandleResponse();
+            result.Categories.AddRange(protoEntities);
+
+            return result;
+        }
+
         public override async Task<ProtoGetCategoriesByRootResponse> GetCategoriesByRoot(ProtoGetCategoriesByRootRequest request, ServerCallContext context)
         {
             var entities = await _categoryService.GetByRootAsync();

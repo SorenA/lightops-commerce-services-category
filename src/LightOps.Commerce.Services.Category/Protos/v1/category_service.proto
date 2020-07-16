@@ -10,30 +10,32 @@ import "google/protobuf/wrappers.proto";
  * Models
  *************/
 message ProtoCategory {
-	string id = 1;
-	string handle = 2;
-	string url = 3;
+  string id = 1;
+  string handle = 2;
+  string url = 3;
 
-	google.protobuf.StringValue parent_category_id = 4;
-	
-	string title = 5;
-	string type = 10;
-	string description = 6;
+  google.protobuf.StringValue parent_category_id = 4;
 
-	string seo_title = 7;
-	string seo_description = 8;
+  string title = 5;
+  string type = 10;
+  string description = 6;
 
-	string primary_image = 9;
+  string seo_title = 7;
+  string seo_description = 8;
+
+  string primary_image = 9;
 }
 
 /*************
  * Services
  *************/
 service ProtoCategoryService {
-	rpc GetCategory(ProtoGetCategoryRequest) returns (ProtoGetCategoryResponse) {}
-	rpc GetCategoriesByRoot(ProtoGetCategoriesByRootRequest) returns (ProtoGetCategoriesByRootResponse) {}
-	rpc GetCategoriesByParentId(ProtoGetCategoriesByParentIdRequest) returns (ProtoGetCategoriesByParentIdResponse) {}
-	rpc GetCategoriesBySearch(ProtoGetCategoriesBySearchRequest) returns (ProtoGetCategoriesBySearchResponse) {}
+  rpc GetCategory(ProtoGetCategoryRequest) returns (ProtoGetCategoryResponse) {}
+  rpc GetCategoriesById(GetCategoriesByIdRequest) returns (GetCategoriesByIdResponse) {}
+  rpc GetCategoriesByHandle(GetCategoriesByHandleRequest) returns (GetCategoriesByHandleResponse) {}
+  rpc GetCategoriesByRoot(ProtoGetCategoriesByRootRequest) returns (ProtoGetCategoriesByRootResponse) {}
+  rpc GetCategoriesByParentId(ProtoGetCategoriesByParentIdRequest) returns (ProtoGetCategoriesByParentIdResponse) {}
+  rpc GetCategoriesBySearch(ProtoGetCategoriesBySearchRequest) returns (ProtoGetCategoriesBySearchResponse) {}
 }
 
 /*************
@@ -41,14 +43,32 @@ service ProtoCategoryService {
  *************/
 // GetCategory
 message ProtoGetCategoryRequest {
-	oneof identifier {
-		string id = 1;
-		string handle = 2;
-	}
+  oneof identifier {
+    string id = 1;
+    string handle = 2;
+  }
 }
 
 message ProtoGetCategoryResponse {
-	ProtoCategory category = 1;
+  ProtoCategory category = 1;
+}
+
+// GetCategoriesById
+message GetCategoriesByIdRequest {
+  repeated string ids = 1;
+}
+
+message GetCategoriesByIdResponse {
+  repeated ProtoCategory categories = 1;
+}
+
+// GetCategoriesByHandle
+message GetCategoriesByHandleRequest {
+  repeated string handles = 1;
+}
+
+message GetCategoriesByHandleResponse {
+  repeated ProtoCategory categories = 1;
 }
 
 // GetCategoriesByRoot
@@ -57,23 +77,23 @@ message ProtoGetCategoriesByRootRequest {
 }
 
 message ProtoGetCategoriesByRootResponse {
-	repeated ProtoCategory categories = 1;
+  repeated ProtoCategory categories = 1;
 }
 
 // GetCategoriesByParentId
 message ProtoGetCategoriesByParentIdRequest {
-	string parent_id = 1;
+  string parent_id = 1;
 }
 
 message ProtoGetCategoriesByParentIdResponse {
-	repeated ProtoCategory categories = 1;
+  repeated ProtoCategory categories = 1;
 }
 
 // GetCategoriesBySearch
 message ProtoGetCategoriesBySearchRequest {
-	string search_term = 1;
+  string search_term = 1;
 }
 
 message ProtoGetCategoriesBySearchResponse {
-	repeated ProtoCategory categories = 1;
+  repeated ProtoCategory categories = 1;
 }
