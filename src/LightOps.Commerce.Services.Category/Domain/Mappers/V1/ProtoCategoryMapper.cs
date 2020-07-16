@@ -28,6 +28,7 @@ namespace LightOps.Commerce.Services.Category.Domain.Mappers.V1
             dest.ParentCategoryId = source.ParentCategoryId;
 
             dest.Title = source.Title;
+            dest.Type = source.Type;
             dest.Description = source.Description;
 
             dest.SeoTitle = source.SeoTitle;
