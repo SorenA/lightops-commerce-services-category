@@ -26,6 +26,8 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
                 .OverrideFetchCategoriesByParentIdQueryHandler<FetchCategoriesByParentIdQueryHandler>()
                 .OverrideFetchCategoriesByRootQueryHandler<FetchCategoriesByRootQueryHandler>()
                 .OverrideFetchCategoriesBySearchQueryHandler<FetchCategoriesBySearchQueryHandler>()
+                .OverrideFetchCategoriesByHandleQueryHandler<FetchCategoriesByHandleQueryHandler>()
+                .OverrideFetchCategoriesByIdQueryHandler<FetchCategoriesByIdQueryHandler>()
                 .OverrideFetchCategoryByHandleQueryHandler<FetchCategoryByHandleQueryHandler>()
                 .OverrideFetchCategoryByIdQueryHandler<FetchCategoryByIdQueryHandler>();
 
