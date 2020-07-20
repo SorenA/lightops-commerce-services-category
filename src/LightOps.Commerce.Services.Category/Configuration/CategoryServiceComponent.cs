@@ -78,30 +78,62 @@ namespace LightOps.Commerce.Services.Category.Configuration
         internal enum QueryHandlers
         {
             CheckCategoryHealthQueryHandler,
+
+            FetchCategoryByIdQueryHandler,
+            FetchCategoriesByIdsQueryHandler,
+
+            FetchCategoryByHandleQueryHandler,
+            FetchCategoriesByHandlesQueryHandler,
+
             FetchCategoriesByParentIdQueryHandler,
+
             FetchCategoriesByRootQueryHandler,
             FetchCategoriesBySearchQueryHandler,
-            FetchCategoriesByHandlesQueryHandler,
-            FetchCategoriesByIdsQueryHandler,
-            FetchCategoryByHandleQueryHandler,
-            FetchCategoryByIdQueryHandler,
         }
 
         private readonly Dictionary<QueryHandlers, ServiceRegistration> _queryHandlers = new Dictionary<QueryHandlers, ServiceRegistration>
         {
             [QueryHandlers.CheckCategoryHealthQueryHandler] = ServiceRegistration.Transient<IQueryHandler<CheckCategoryHealthQuery, HealthStatus>>(),
+
+            [QueryHandlers.FetchCategoryByIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoryByIdQuery, ICategory>>(),
+            [QueryHandlers.FetchCategoriesByIdsQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByIdsQuery, IList<ICategory>>>(),
+
+            [QueryHandlers.FetchCategoryByHandleQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoryByHandleQuery, ICategory>>(),
+            [QueryHandlers.FetchCategoriesByHandlesQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByHandlesQuery, IList<ICategory>>>(),
+
             [QueryHandlers.FetchCategoriesByParentIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByParentIdQuery, IList<ICategory>>>(),
+
             [QueryHandlers.FetchCategoriesByRootQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByRootQuery, IList<ICategory>>>(),
             [QueryHandlers.FetchCategoriesBySearchQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesBySearchQuery, IList<ICategory>>>(),
-            [QueryHandlers.FetchCategoriesByHandlesQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByHandlesQuery, IList<ICategory>>>(),
-            [QueryHandlers.FetchCategoriesByIdsQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByIdsQuery, IList<ICategory>>>(),
-            [QueryHandlers.FetchCategoryByHandleQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoryByHandleQuery, ICategory>>(),
-            [QueryHandlers.FetchCategoryByIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoryByIdQuery, ICategory>>(),
         };
 
         public ICategoryServiceComponent OverrideCheckCategoryHealthQueryHandler<T>() where T : ICheckCategoryHealthQueryHandler
         {
             _queryHandlers[QueryHandlers.CheckCategoryHealthQueryHandler].ImplementationType = typeof(T);
+            return this;
+        }
+
+        public ICategoryServiceComponent OverrideFetchCategoryByIdQueryHandler<T>() where T : IFetchCategoryByIdQueryHandler
+        {
+            _queryHandlers[QueryHandlers.FetchCategoryByIdQueryHandler].ImplementationType = typeof(T);
+            return this;
+        }
+
+        public ICategoryServiceComponent OverrideFetchCategoriesByIdsQueryHandler<T>() where T : IFetchCategoriesByIdsQueryHandler
+        {
+            _queryHandlers[QueryHandlers.FetchCategoriesByIdsQueryHandler].ImplementationType = typeof(T);
+            return this;
+        }
+
+        public ICategoryServiceComponent OverrideFetchCategoryByHandleQueryHandler<T>() where T : IFetchCategoryByHandleQueryHandler
+        {
+            _queryHandlers[QueryHandlers.FetchCategoryByHandleQueryHandler].ImplementationType = typeof(T);
+            return this;
+        }
+
+        public ICategoryServiceComponent OverrideFetchCategoriesByHandlesQueryHandler<T>() where T : IFetchCategoriesByHandlesQueryHandler
+        {
+            _queryHandlers[QueryHandlers.FetchCategoriesByHandlesQueryHandler].ImplementationType = typeof(T);
             return this;
         }
 
@@ -120,30 +152,6 @@ namespace LightOps.Commerce.Services.Category.Configuration
         public ICategoryServiceComponent OverrideFetchCategoriesBySearchQueryHandler<T>() where T : IFetchCategoriesBySearchQueryHandler
         {
             _queryHandlers[QueryHandlers.FetchCategoriesBySearchQueryHandler].ImplementationType = typeof(T);
-            return this;
-        }
-
-        public ICategoryServiceComponent OverrideFetchCategoriesByHandlesQueryHandler<T>() where T : IFetchCategoriesByHandlesQueryHandler
-        {
-            _queryHandlers[QueryHandlers.FetchCategoriesByHandlesQueryHandler].ImplementationType = typeof(T);
-            return this;
-        }
-
-        public ICategoryServiceComponent OverrideFetchCategoriesByIdsQueryHandler<T>() where T : IFetchCategoriesByIdsQueryHandler
-        {
-            _queryHandlers[QueryHandlers.FetchCategoriesByIdsQueryHandler].ImplementationType = typeof(T);
-            return this;
-        }
-
-        public ICategoryServiceComponent OverrideFetchCategoryByHandleQueryHandler<T>() where T : IFetchCategoryByHandleQueryHandler
-        {
-            _queryHandlers[QueryHandlers.FetchCategoryByHandleQueryHandler].ImplementationType = typeof(T);
-            return this;
-        }
-
-        public ICategoryServiceComponent OverrideFetchCategoryByIdQueryHandler<T>() where T : IFetchCategoryByIdQueryHandler
-        {
-            _queryHandlers[QueryHandlers.FetchCategoryByIdQueryHandler].ImplementationType = typeof(T);
             return this;
         }
         #endregion Query Handlers

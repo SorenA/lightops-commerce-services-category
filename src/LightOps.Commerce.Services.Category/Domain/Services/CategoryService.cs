@@ -24,19 +24,19 @@ namespace LightOps.Commerce.Services.Category.Domain.Services
             });
         }
 
-        public Task<ICategory> GetByHandleAsync(string handle)
-        {
-            return _queryDispatcher.DispatchAsync<FetchCategoryByHandleQuery, ICategory>(new FetchCategoryByHandleQuery
-            {
-                Handle = handle,
-            });
-        }
-
         public Task<IList<ICategory>> GetByIdAsync(IList<string> ids)
         {
             return _queryDispatcher.DispatchAsync<FetchCategoriesByIdsQuery, IList<ICategory>>(new FetchCategoriesByIdsQuery
             {
                 Ids = ids,
+            });
+        }
+
+        public Task<ICategory> GetByHandleAsync(string handle)
+        {
+            return _queryDispatcher.DispatchAsync<FetchCategoryByHandleQuery, ICategory>(new FetchCategoryByHandleQuery
+            {
+                Handle = handle,
             });
         }
 
@@ -48,17 +48,17 @@ namespace LightOps.Commerce.Services.Category.Domain.Services
             });
         }
 
-        public Task<IList<ICategory>> GetByRootAsync()
-        {
-            return _queryDispatcher.DispatchAsync<FetchCategoriesByRootQuery, IList<ICategory>>(new FetchCategoriesByRootQuery());
-        }
-
         public Task<IList<ICategory>> GetByParentIdAsync(string parentId)
         {
             return _queryDispatcher.DispatchAsync<FetchCategoriesByParentIdQuery, IList<ICategory>>(new FetchCategoriesByParentIdQuery
             {
                 ParentId = parentId,
             });
+        }
+
+        public Task<IList<ICategory>> GetByRootAsync()
+        {
+            return _queryDispatcher.DispatchAsync<FetchCategoriesByRootQuery, IList<ICategory>>(new FetchCategoriesByRootQuery());
         }
 
         public Task<IList<ICategory>> GetBySearchAsync(string searchTerm)

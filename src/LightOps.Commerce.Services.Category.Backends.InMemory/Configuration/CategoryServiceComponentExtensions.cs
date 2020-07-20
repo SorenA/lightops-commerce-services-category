@@ -23,13 +23,13 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
             // Override query handlers
             serviceComponent
                 .OverrideCheckCategoryHealthQueryHandler<CheckCategoryHealthQueryHandler>()
-                .OverrideFetchCategoriesByParentIdQueryHandler<FetchCategoriesByParentIdQueryHandler>()
-                .OverrideFetchCategoriesByRootQueryHandler<FetchCategoriesByRootQueryHandler>()
-                .OverrideFetchCategoriesBySearchQueryHandler<FetchCategoriesBySearchQueryHandler>()
-                .OverrideFetchCategoriesByHandlesQueryHandler<FetchCategoriesByHandlesQueryHandler>()
+                .OverrideFetchCategoryByIdQueryHandler<FetchCategoryByIdQueryHandler>()
                 .OverrideFetchCategoriesByIdsQueryHandler<FetchCategoriesByIdsQueryHandler>()
                 .OverrideFetchCategoryByHandleQueryHandler<FetchCategoryByHandleQueryHandler>()
-                .OverrideFetchCategoryByIdQueryHandler<FetchCategoryByIdQueryHandler>();
+                .OverrideFetchCategoriesByHandlesQueryHandler<FetchCategoriesByHandlesQueryHandler>()
+                .OverrideFetchCategoriesByParentIdQueryHandler<FetchCategoriesByParentIdQueryHandler>()
+                .OverrideFetchCategoriesByRootQueryHandler<FetchCategoriesByRootQueryHandler>()
+                .OverrideFetchCategoriesBySearchQueryHandler<FetchCategoriesBySearchQueryHandler>();
 
             return serviceComponent;
         }
