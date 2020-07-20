@@ -3,8 +3,8 @@ using LightOps.CQRS.Api.Queries;
 
 namespace LightOps.Commerce.Services.Category.Api.Queries
 {
-    public class FetchCategoriesByIdQuery : IQuery
+    public class FetchCategoriesByHandlesQuery : IQuery
     {
-        public IList<string> Ids { get; set; }
+        public IList<string> Handles { get; set; }
     }
 }

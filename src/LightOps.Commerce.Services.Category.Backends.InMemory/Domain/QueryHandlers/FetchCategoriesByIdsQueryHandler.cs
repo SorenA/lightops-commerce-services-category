@@ -8,16 +8,16 @@ using LightOps.Commerce.Services.Category.Backends.InMemory.Api.Providers;
 
 namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHandlers
 {
-    public class FetchCategoriesByIdQueryHandler : IFetchCategoriesByIdQueryHandler
+    public class FetchCategoriesByIdsQueryHandler : IFetchCategoriesByIdsQueryHandler
     {
         private readonly IInMemoryCategoryProvider _inMemoryCategoryProvider;
 
-        public FetchCategoriesByIdQueryHandler(IInMemoryCategoryProvider inMemoryCategoryProvider)
+        public FetchCategoriesByIdsQueryHandler(IInMemoryCategoryProvider inMemoryCategoryProvider)
         {
             _inMemoryCategoryProvider = inMemoryCategoryProvider;
         }
 
-        public Task<IList<ICategory>> HandleAsync(FetchCategoriesByIdQuery query)
+        public Task<IList<ICategory>> HandleAsync(FetchCategoriesByIdsQuery query)
         {
             var categories = _inMemoryCategoryProvider
                 .Categories

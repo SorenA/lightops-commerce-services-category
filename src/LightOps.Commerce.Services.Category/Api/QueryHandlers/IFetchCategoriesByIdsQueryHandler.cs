@@ -5,7 +5,7 @@ using LightOps.CQRS.Api.Queries;
 
 namespace LightOps.Commerce.Services.Category.Api.QueryHandlers
 {
-    public interface IFetchCategoriesByIdQueryHandler : IQueryHandler<FetchCategoriesByIdQuery, IList<ICategory>>
+    public interface IFetchCategoriesByIdsQueryHandler : IQueryHandler<FetchCategoriesByIdsQuery, IList<ICategory>>
     {
 
     }

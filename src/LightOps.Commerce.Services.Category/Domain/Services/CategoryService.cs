@@ -34,7 +34,7 @@ namespace LightOps.Commerce.Services.Category.Domain.Services
 
         public Task<IList<ICategory>> GetByIdAsync(IList<string> ids)
         {
-            return _queryDispatcher.DispatchAsync<FetchCategoriesByIdQuery, IList<ICategory>>(new FetchCategoriesByIdQuery
+            return _queryDispatcher.DispatchAsync<FetchCategoriesByIdsQuery, IList<ICategory>>(new FetchCategoriesByIdsQuery
             {
                 Ids = ids,
             });
@@ -42,7 +42,7 @@ namespace LightOps.Commerce.Services.Category.Domain.Services
 
         public Task<IList<ICategory>> GetByHandleAsync(IList<string> handles)
         {
-            return _queryDispatcher.DispatchAsync<FetchCategoriesByHandleQuery, IList<ICategory>>(new FetchCategoriesByHandleQuery
+            return _queryDispatcher.DispatchAsync<FetchCategoriesByHandlesQuery, IList<ICategory>>(new FetchCategoriesByHandlesQuery
             {
                 Handles = handles,
             });

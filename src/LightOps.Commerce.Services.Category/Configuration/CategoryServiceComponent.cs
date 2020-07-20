@@ -81,8 +81,8 @@ namespace LightOps.Commerce.Services.Category.Configuration
             FetchCategoriesByParentIdQueryHandler,
             FetchCategoriesByRootQueryHandler,
             FetchCategoriesBySearchQueryHandler,
-            FetchCategoriesByHandleQueryHandler,
-            FetchCategoriesByIdQueryHandler,
+            FetchCategoriesByHandlesQueryHandler,
+            FetchCategoriesByIdsQueryHandler,
             FetchCategoryByHandleQueryHandler,
             FetchCategoryByIdQueryHandler,
         }
@@ -93,8 +93,8 @@ namespace LightOps.Commerce.Services.Category.Configuration
             [QueryHandlers.FetchCategoriesByParentIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByParentIdQuery, IList<ICategory>>>(),
             [QueryHandlers.FetchCategoriesByRootQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByRootQuery, IList<ICategory>>>(),
             [QueryHandlers.FetchCategoriesBySearchQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesBySearchQuery, IList<ICategory>>>(),
-            [QueryHandlers.FetchCategoriesByHandleQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByHandleQuery, IList<ICategory>>>(),
-            [QueryHandlers.FetchCategoriesByIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByIdQuery, IList<ICategory>>>(),
+            [QueryHandlers.FetchCategoriesByHandlesQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByHandlesQuery, IList<ICategory>>>(),
+            [QueryHandlers.FetchCategoriesByIdsQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByIdsQuery, IList<ICategory>>>(),
             [QueryHandlers.FetchCategoryByHandleQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoryByHandleQuery, ICategory>>(),
             [QueryHandlers.FetchCategoryByIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoryByIdQuery, ICategory>>(),
         };
@@ -123,15 +123,15 @@ namespace LightOps.Commerce.Services.Category.Configuration
             return this;
         }
 
-        public ICategoryServiceComponent OverrideFetchCategoriesByHandleQueryHandler<T>() where T : IFetchCategoriesByHandleQueryHandler
+        public ICategoryServiceComponent OverrideFetchCategoriesByHandlesQueryHandler<T>() where T : IFetchCategoriesByHandlesQueryHandler
         {
-            _queryHandlers[QueryHandlers.FetchCategoriesByHandleQueryHandler].ImplementationType = typeof(T);
+            _queryHandlers[QueryHandlers.FetchCategoriesByHandlesQueryHandler].ImplementationType = typeof(T);
             return this;
         }
 
-        public ICategoryServiceComponent OverrideFetchCategoriesByIdQueryHandler<T>() where T : IFetchCategoriesByIdQueryHandler
+        public ICategoryServiceComponent OverrideFetchCategoriesByIdsQueryHandler<T>() where T : IFetchCategoriesByIdsQueryHandler
         {
-            _queryHandlers[QueryHandlers.FetchCategoriesByIdQueryHandler].ImplementationType = typeof(T);
+            _queryHandlers[QueryHandlers.FetchCategoriesByIdsQueryHandler].ImplementationType = typeof(T);
             return this;
         }
 
