@@ -49,34 +49,23 @@ namespace LightOps.Commerce.Services.Category.Domain.Services.V1
             return result;
         }
 
-        public override async Task<GetCategoriesByIdResponse> GetCategoriesById(GetCategoriesByIdRequest request, ServerCallContext context)
+        public override async Task<GetCategoriesByIdsResponse> GetCategoriesByIds(GetCategoriesByIdsRequest request, ServerCallContext context)
         {
             var entities = await _categoryService.GetByIdAsync(request.Ids);
             var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
 
-            var result = new GetCategoriesByIdResponse();
+            var result = new GetCategoriesByIdsResponse();
             result.Categories.AddRange(protoEntities);
 
             return result;
         }
 
-        public override async Task<GetCategoriesByHandleResponse> GetCategoriesByHandle(GetCategoriesByHandleRequest request, ServerCallContext context)
+        public override async Task<GetCategoriesByHandlesResponse> GetCategoriesByHandles(GetCategoriesByHandlesRequest request, ServerCallContext context)
         {
             var entities = await _categoryService.GetByHandleAsync(request.Handles);
             var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
 
-            var result = new GetCategoriesByHandleResponse();
-            result.Categories.AddRange(protoEntities);
-
-            return result;
-        }
-
-        public override async Task<ProtoGetCategoriesByRootResponse> GetCategoriesByRoot(ProtoGetCategoriesByRootRequest request, ServerCallContext context)
-        {
-            var entities = await _categoryService.GetByRootAsync();
-            var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
-
-            var result = new ProtoGetCategoriesByRootResponse();
+            var result = new GetCategoriesByHandlesResponse();
             result.Categories.AddRange(protoEntities);
 
             return result;
@@ -88,6 +77,28 @@ namespace LightOps.Commerce.Services.Category.Domain.Services.V1
             var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
 
             var result = new ProtoGetCategoriesByParentIdResponse();
+            result.Categories.AddRange(protoEntities);
+
+            return result;
+        }
+
+        public override async Task<ProtoGetCategoriesByParentIdsResponse> GetCategoriesByParentIds(ProtoGetCategoriesByParentIdsRequest request, ServerCallContext context)
+        {
+            var entities = await _categoryService.GetByParentIdAsync(request.ParentIds);
+            var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
+
+            var result = new ProtoGetCategoriesByParentIdsResponse();
+            result.Categories.AddRange(protoEntities);
+
+            return result;
+        }
+
+        public override async Task<ProtoGetCategoriesByRootResponse> GetCategoriesByRoot(ProtoGetCategoriesByRootRequest request, ServerCallContext context)
+        {
+            var entities = await _categoryService.GetByRootAsync();
+            var protoEntities = _mappingService.Map<ICategory, ProtoCategory>(entities);
+
+            var result = new ProtoGetCategoriesByRootResponse();
             result.Categories.AddRange(protoEntities);
 
             return result;
