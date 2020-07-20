@@ -13,6 +13,7 @@ namespace LightOps.Commerce.Services.Category.Api.Services
         Task<IList<ICategory>> GetByHandleAsync(IList<string> handles);
 
         Task<IList<ICategory>> GetByParentIdAsync(string parentId);
+        Task<IList<ICategory>> GetByParentIdAsync(IList<string> parentIds);
 
         Task<IList<ICategory>> GetByRootAsync();
         Task<IList<ICategory>> GetBySearchAsync(string searchTerm);

@@ -26,6 +26,7 @@ namespace LightOps.Commerce.Services.Category.Configuration
         ICategoryServiceComponent OverrideFetchCategoriesByHandlesQueryHandler<T>() where T : IFetchCategoriesByHandlesQueryHandler;
 
         ICategoryServiceComponent OverrideFetchCategoriesByParentIdQueryHandler<T>() where T : IFetchCategoriesByParentIdQueryHandler;
+        ICategoryServiceComponent OverrideFetchCategoriesByParentIdsQueryHandler<T>() where T : IFetchCategoriesByParentIdsQueryHandler;
 
         ICategoryServiceComponent OverrideFetchCategoriesByRootQueryHandler<T>() where T : IFetchCategoriesByRootQueryHandler;
         ICategoryServiceComponent OverrideFetchCategoriesBySearchQueryHandler<T>() where T : IFetchCategoriesBySearchQueryHandler;

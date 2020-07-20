@@ -86,6 +86,7 @@ namespace LightOps.Commerce.Services.Category.Configuration
             FetchCategoriesByHandlesQueryHandler,
 
             FetchCategoriesByParentIdQueryHandler,
+            FetchCategoriesByParentIdsQueryHandler,
 
             FetchCategoriesByRootQueryHandler,
             FetchCategoriesBySearchQueryHandler,
@@ -102,6 +103,7 @@ namespace LightOps.Commerce.Services.Category.Configuration
             [QueryHandlers.FetchCategoriesByHandlesQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByHandlesQuery, IList<ICategory>>>(),
 
             [QueryHandlers.FetchCategoriesByParentIdQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByParentIdQuery, IList<ICategory>>>(),
+            [QueryHandlers.FetchCategoriesByParentIdsQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByParentIdsQuery, IList<ICategory>>>(),
 
             [QueryHandlers.FetchCategoriesByRootQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesByRootQuery, IList<ICategory>>>(),
             [QueryHandlers.FetchCategoriesBySearchQueryHandler] = ServiceRegistration.Transient<IQueryHandler<FetchCategoriesBySearchQuery, IList<ICategory>>>(),
@@ -140,6 +142,12 @@ namespace LightOps.Commerce.Services.Category.Configuration
         public ICategoryServiceComponent OverrideFetchCategoriesByParentIdQueryHandler<T>() where T : IFetchCategoriesByParentIdQueryHandler
         {
             _queryHandlers[QueryHandlers.FetchCategoriesByParentIdQueryHandler].ImplementationType = typeof(T);
+            return this;
+        }
+
+        public ICategoryServiceComponent OverrideFetchCategoriesByParentIdsQueryHandler<T>() where T : IFetchCategoriesByParentIdsQueryHandler
+        {
+            _queryHandlers[QueryHandlers.FetchCategoriesByParentIdsQueryHandler].ImplementationType = typeof(T);
             return this;
         }
 
