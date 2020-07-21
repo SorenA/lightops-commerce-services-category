@@ -21,7 +21,9 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
         {
             var categories = _inMemoryCategoryProvider
                 .Categories
-                .Where(c => query.ParentIds.Contains(c.ParentCategoryId))
+                .Where(c =>
+                    !string.IsNullOrEmpty(c.ParentCategoryId)
+                    && query.ParentIds.Contains(c.ParentCategoryId))
                 .ToList();
 
             return Task.FromResult<IList<ICategory>>(categories);
