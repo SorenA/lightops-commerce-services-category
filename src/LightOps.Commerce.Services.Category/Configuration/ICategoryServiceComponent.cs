@@ -1,4 +1,5 @@
-﻿using LightOps.Commerce.Services.Category.Api.Models;
+﻿using LightOps.Commerce.Proto.Types;
+using LightOps.Commerce.Services.Category.Api.Models;
 using LightOps.Commerce.Services.Category.Api.QueryHandlers;
 using LightOps.Commerce.Services.Category.Api.Services;
 using LightOps.Mapping.Api.Mappers;
@@ -13,22 +14,15 @@ namespace LightOps.Commerce.Services.Category.Configuration
         #endregion Services
 
         #region Mappers
-        ICategoryServiceComponent OverrideProtoCategoryMapperV1<T>() where T : IMapper<ICategory, Proto.Services.Category.V1.ProtoCategory>;
+        ICategoryServiceComponent OverrideCategoryProtoMapper<T>() where T : IMapper<ICategory, CategoryProto>;
+        ICategoryServiceComponent OverrideImageProtoMapper<T>() where T : IMapper<IImage, ImageProto>;
         #endregion Mappers
 
         #region Query Handlers
         ICategoryServiceComponent OverrideCheckCategoryHealthQueryHandler<T>() where T : ICheckCategoryHealthQueryHandler;
 
-        ICategoryServiceComponent OverrideFetchCategoryByIdQueryHandler<T>() where T : IFetchCategoryByIdQueryHandler;
-        ICategoryServiceComponent OverrideFetchCategoriesByIdsQueryHandler<T>() where T : IFetchCategoriesByIdsQueryHandler;
-
-        ICategoryServiceComponent OverrideFetchCategoryByHandleQueryHandler<T>() where T : IFetchCategoryByHandleQueryHandler;
         ICategoryServiceComponent OverrideFetchCategoriesByHandlesQueryHandler<T>() where T : IFetchCategoriesByHandlesQueryHandler;
-
-        ICategoryServiceComponent OverrideFetchCategoriesByParentIdQueryHandler<T>() where T : IFetchCategoriesByParentIdQueryHandler;
-        ICategoryServiceComponent OverrideFetchCategoriesByParentIdsQueryHandler<T>() where T : IFetchCategoriesByParentIdsQueryHandler;
-
-        ICategoryServiceComponent OverrideFetchCategoriesByRootQueryHandler<T>() where T : IFetchCategoriesByRootQueryHandler;
+        ICategoryServiceComponent OverrideFetchCategoriesByIdsQueryHandler<T>() where T : IFetchCategoriesByIdsQueryHandler;
         ICategoryServiceComponent OverrideFetchCategoriesBySearchQueryHandler<T>() where T : IFetchCategoriesBySearchQueryHandler;
         #endregion Query Handlers
     }
