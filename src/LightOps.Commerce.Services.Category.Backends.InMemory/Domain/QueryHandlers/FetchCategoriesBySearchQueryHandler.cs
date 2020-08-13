@@ -22,8 +22,6 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
         
         public Task<SearchResult<ICategory>> HandleAsync(FetchCategoriesBySearchQuery query)
         {
-            var searchTerm = query.SearchTerm.ToLowerInvariant();
-
             var inMemoryQuery = _inMemoryCategoryProvider.Categories
                 .AsQueryable();
 
@@ -54,8 +52,9 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             }
 
             // Search in list
-            if (query.SearchTerm != "*")
+            if (!string.IsNullOrEmpty(query.SearchTerm))
             {
+                var searchTerm = query.SearchTerm.ToLowerInvariant();
                 inMemoryQuery = inMemoryQuery
                     .Where(x =>
                         (!string.IsNullOrWhiteSpace(x.Title) && x.Title.ToLowerInvariant().Contains(searchTerm))
@@ -67,6 +66,7 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
 
             // Paginate - Skip
             var nodeId = DecodeCursor(query.PageCursor);
+            var remainingResultsPrePagination = inMemoryQuery.Count();
             if (!string.IsNullOrEmpty(nodeId))
             {
                 // Skip until we reach cursor, then one more for next page
@@ -81,16 +81,24 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             // Paginate - Take
             var results = inMemoryQuery
                 .Take(query.PageSize)
+                .Select(x => new CursorNodeResult<ICategory>
+                {
+                    Cursor = EncodeCursor(x.Id),
+                    Node = x,
+                })
                 .ToList();
 
-            // Generate next page cursor
-            var nextPageCursor = EncodeCursor(results.LastOrDefault()?.Id);
+            // Get cursors
+            var startCursor = results.FirstOrDefault()?.Cursor;
+            var endCursor = results.LastOrDefault()?.Cursor;
 
             var searchResult = new SearchResult<ICategory>
             {
                 Results = results,
-                NextPageCursor = nextPageCursor,
+                StartCursor = startCursor,
+                EndCursor = endCursor,
                 HasNextPage = remainingResults > query.PageSize,
+                HasPreviousPage = remainingResultsPrePagination != remainingResults,
                 TotalResults = totalResults,
             };
 

@@ -6,7 +6,7 @@ namespace LightOps.Commerce.Services.Category.Api.Queries
     public class FetchCategoriesBySearchQuery : IQuery
     {
         /// <summary>
-        /// The term to search for
+        /// The term to search for, if any
         /// </summary>
         public string SearchTerm { get; set; }
 
