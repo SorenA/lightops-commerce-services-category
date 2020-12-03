@@ -20,11 +20,11 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
         public Task<IList<ICategory>> HandleAsync(FetchCategoriesByHandlesQuery query)
         {
             var categories = _inMemoryCategoryProvider
-                .Categories
+                .Categories?
                 .Where(c => query.Handles.Contains(c.Handle))
                 .ToList();
 
-            return Task.FromResult<IList<ICategory>>(categories);
+            return Task.FromResult<IList<ICategory>>(categories ?? new List<ICategory>());
         }
     }
 }

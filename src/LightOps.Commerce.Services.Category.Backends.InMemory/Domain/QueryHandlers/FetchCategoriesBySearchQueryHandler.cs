@@ -22,8 +22,9 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
         
         public Task<SearchResult<ICategory>> HandleAsync(FetchCategoriesBySearchQuery query)
         {
-            var inMemoryQuery = _inMemoryCategoryProvider.Categories
-                .AsQueryable();
+            var inMemoryQuery = _inMemoryCategoryProvider
+                .Categories?
+                .AsQueryable() ?? new EnumerableQuery<ICategory>(new List<ICategory>());
 
             // Sort underlying list
             switch (query.SortKey)

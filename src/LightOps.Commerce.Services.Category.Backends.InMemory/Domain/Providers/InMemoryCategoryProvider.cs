@@ -6,6 +6,6 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.Providers
 {
     public class InMemoryCategoryProvider : IInMemoryCategoryProvider
     {
-        public IList<ICategory> Categories { get; internal set; }
+        public IList<ICategory> Categories { get; internal set; } = new List<ICategory>();
     }
 }

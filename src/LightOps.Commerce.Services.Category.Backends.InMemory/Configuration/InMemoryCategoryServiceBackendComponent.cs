@@ -14,26 +14,20 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
 
         public IReadOnlyList<ServiceRegistration> GetServiceRegistrations()
         {
-            // Populate in-memory providers
-            _providers[Providers.InMemoryCategoryProvider].ImplementationInstance = new InMemoryCategoryProvider
-            {
-                Categories = _categories,
-            };
-
             return new List<ServiceRegistration>()
                 .Union(_providers.Values)
                 .ToList();
         }
 
         #region Entities
-        private readonly IList<ICategory> _categories = new List<ICategory>();
-
         public IInMemoryCategoryServiceBackendComponent UseCategories(IList<ICategory> categories)
         {
-            foreach (var category in categories)
+            // Populate in-memory providers
+            _providers[Providers.InMemoryCategoryProvider].ImplementationType = null;
+            _providers[Providers.InMemoryCategoryProvider].ImplementationInstance = new InMemoryCategoryProvider
             {
-                _categories.Add(category);
-            }
+                Categories = categories,
+            };
 
             return this;
         }
@@ -47,8 +41,15 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
 
         private readonly Dictionary<Providers, ServiceRegistration> _providers = new Dictionary<Providers, ServiceRegistration>
         {
-            [Providers.InMemoryCategoryProvider] = ServiceRegistration.Singleton<IInMemoryCategoryProvider>(),
+            [Providers.InMemoryCategoryProvider] = ServiceRegistration.Singleton<IInMemoryCategoryProvider, InMemoryCategoryProvider>(),
         };
+
+        public IInMemoryCategoryServiceBackendComponent OverrideCategoryProvider<T>() where T : IInMemoryCategoryProvider
+        {
+            _providers[Providers.InMemoryCategoryProvider].ImplementationInstance = null;
+            _providers[Providers.InMemoryCategoryProvider].ImplementationType = typeof(T);
+            return this;
+        }
         #endregion Providers
     }
 }
