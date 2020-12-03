@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2020-12-03
+
+### Changed
+
+- In-memory backend category provider made overridable on startup
+- In-memory query handlers now support category collection being null
+
 ## [0.4.0] - 2020-08-13
 
 ### Changed
@@ -73,7 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Health service using CQRS for status checks
 - In-memory backend providing default query handlers
 
-[unreleased]: https://github.com/SorenA/lightops-commerce-services-category/compare/0.4.0...develop
+[unreleased]: https://github.com/SorenA/lightops-commerce-services-category/compare/0.4.1...develop
+[0.4.1]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.4.1
 [0.4.0]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.4.0
 [0.3.0]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.3.0
 [0.2.1]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.2.1
