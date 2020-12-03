@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightOps.Commerce.Services.Category", "src\LightOps.Commerce.Services.Category\LightOps.Commerce.Services.Category.csproj", "{AF7801FB-C950-47C2-B981-499D2342554B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightOps.Commerce.Services.Category", "src\LightOps.Commerce.Services.Category\LightOps.Commerce.Services.Category.csproj", "{AF7801FB-C950-47C2-B981-499D2342554B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backends", "Backends", "{AFCB9C70-D10A-433F-A7D1-EC3A0408A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightOps.Commerce.Services.Category.Backends.InMemory", "src\LightOps.Commerce.Services.Category.Backends.InMemory\LightOps.Commerce.Services.Category.Backends.InMemory.csproj", "{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightOps.Commerce.Services.Category.Backends.InMemory", "src\LightOps.Commerce.Services.Category.Backends.InMemory\LightOps.Commerce.Services.Category.Backends.InMemory.csproj", "{6D5CD8CC-7380-47D9-8DB3-ECE18AE2BF3D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{84A721D7-6CE8-464A-9F80-D7079C5EB207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CategoryService", "samples\Sample.CategoryService\Sample.CategoryService.csproj", "{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.CategoryService", "samples\Sample.CategoryService\Sample.CategoryService.csproj", "{72DAFBB4-91B5-4F9A-9019-E36A1DB9DDC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{533A4C88-3096-4B19-8F6A-DAD303E216D3}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		CHANGELOG.md = CHANGELOG.md
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
