@@ -32,7 +32,12 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             switch (query.SortKey)
             {
                 case GetBySearchRequest.Types.SortKey.Title:
-                    inMemoryQuery = inMemoryQuery.OrderBy(x => x.Title);
+                    // Only possible when using a language code
+                    if (!string.IsNullOrEmpty(query.LanguageCode))
+                    {
+                        inMemoryQuery = inMemoryQuery.OrderBy(x => x.Titles
+                            .FirstOrDefault(l => l.LanguageCode == query.LanguageCode));
+                    }
                     break;
                 case GetBySearchRequest.Types.SortKey.CreatedAt:
                     inMemoryQuery = inMemoryQuery.OrderBy(x => x.CreatedAt);
@@ -62,11 +67,11 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
                 {
                     inMemoryQuery = inMemoryQuery
                         .Where(x =>
-                            x.Title.Any(l =>
+                            x.Titles.Any(l =>
                                 l.LanguageCode == query.LanguageCode
                                 && l.Value.ToLowerInvariant().Contains(query.SearchTerm,
                                     StringComparison.InvariantCultureIgnoreCase))
-                            || x.Description.Any(l =>
+                            || x.Descriptions.Any(l =>
                                 l.LanguageCode == query.LanguageCode
                                 && l.Value.ToLowerInvariant().Contains(query.SearchTerm,
                                     StringComparison.InvariantCultureIgnoreCase)));
@@ -76,10 +81,10 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
                     // No language code, match all
                     inMemoryQuery = inMemoryQuery
                         .Where(x =>
-                            x.Title.Any(l =>
+                            x.Titles.Any(l =>
                                 l.Value.ToLowerInvariant().Contains(query.SearchTerm,
                                     StringComparison.InvariantCultureIgnoreCase))
-                            || x.Description.Any(l =>
+                            || x.Descriptions.Any(l =>
                                 l.Value.ToLowerInvariant().Contains(query.SearchTerm,
                                     StringComparison.InvariantCultureIgnoreCase)));
                 }

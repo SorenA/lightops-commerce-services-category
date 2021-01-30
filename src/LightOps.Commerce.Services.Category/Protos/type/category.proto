@@ -18,17 +18,17 @@ message Category {
   // A human-friendly unique string for the category
   string handle = 3;
 
-  // The title of the category
-  repeated lightops.type.LocalizedString title = 4;
+  // The localized titles of the category
+  repeated lightops.type.LocalizedString titles = 4;
 
-  // The url of the category
-  string url = 5;
+  // The localized url of the category
+  repeated lightops.type.LocalizedString urls = 5;
 
   // The type of the category
   string type = 6;
 
-  // The description of the category
-  repeated lightops.type.LocalizedString description = 7;
+  // The localized descriptions of the category
+  repeated lightops.type.LocalizedString descriptions = 7;
 
   // The timestamp of category creation
   google.protobuf.Timestamp created_at = 8;
