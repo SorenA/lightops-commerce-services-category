@@ -1,4 +1,5 @@
 ﻿using System;
+using LightOps.Commerce.Services.Category.Backends.InMemory.Domain.CommandHandlers;
 using LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHandlers;
 using LightOps.Commerce.Services.Category.Configuration;
 using LightOps.DependencyInjection.Configuration;
@@ -20,9 +21,14 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
             // Attach to root component
             rootComponent.AttachComponent(component);
 
+            // Override command handlers
+            serviceComponent
+                .OverridePersistCategoryCommandHandler<PersistCategoryCommandHandler>()
+                .OverrideDeleteCategoryCommandHandler<DeleteCategoryCommandHandler>();
+
             // Override query handlers
             serviceComponent
-                .OverrideCheckCategoryHealthQueryHandler<CheckCategoryHealthQueryHandler>()
+                .OverrideCheckCategoryServiceHealthQueryHandler<CheckCategoryServiceHealthQueryHandler>()
                 .OverrideFetchCategoriesByHandlesQueryHandler<FetchCategoriesByHandlesQueryHandler>()
                 .OverrideFetchCategoriesByIdsQueryHandler<FetchCategoriesByIdsQueryHandler>()
                 .OverrideFetchCategoriesBySearchQueryHandler<FetchCategoriesBySearchQueryHandler>();

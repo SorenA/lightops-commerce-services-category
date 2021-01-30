@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LightOps.Commerce.Services.Category.Api.Models;
 using LightOps.Commerce.Services.Category.Api.Queries;
 using LightOps.Commerce.Services.Category.Api.QueryHandlers;
 using LightOps.Commerce.Services.Category.Backends.InMemory.Api.Providers;
@@ -17,14 +16,14 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             _inMemoryCategoryProvider = inMemoryCategoryProvider;
         }
 
-        public Task<IList<ICategory>> HandleAsync(FetchCategoriesByIdsQuery query)
+        public Task<IList<Proto.Types.Category>> HandleAsync(FetchCategoriesByIdsQuery query)
         {
             var categories = _inMemoryCategoryProvider
                 .Categories?
                 .Where(c => query.Ids.Contains(c.Id))
                 .ToList();
 
-            return Task.FromResult<IList<ICategory>>(categories ?? new List<ICategory>());
+            return Task.FromResult<IList<Proto.Types.Category>>(categories ?? new List<Proto.Types.Category>());
         }
     }
 }

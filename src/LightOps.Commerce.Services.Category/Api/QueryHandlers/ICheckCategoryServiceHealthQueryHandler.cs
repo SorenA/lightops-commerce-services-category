@@ -4,7 +4,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace LightOps.Commerce.Services.Category.Api.QueryHandlers
 {
-    public interface ICheckCategoryHealthQueryHandler : IQueryHandler<CheckCategoryHealthQuery, HealthStatus>
+    public interface ICheckCategoryServiceHealthQueryHandler : IQueryHandler<CheckCategoryServiceHealthQuery, HealthStatus>
     {
 
     }

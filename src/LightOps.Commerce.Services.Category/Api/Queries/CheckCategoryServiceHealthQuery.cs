@@ -2,7 +2,7 @@
 
 namespace LightOps.Commerce.Services.Category.Api.Queries
 {
-    public class CheckCategoryHealthQuery : IQuery
+    public class CheckCategoryServiceHealthQuery : IQuery
     {
 
     }

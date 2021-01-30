@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using LightOps.Commerce.Services.Category.Api.Models;
 using LightOps.Commerce.Services.Category.Backends.InMemory.Api.Providers;
 
 namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
@@ -7,7 +6,7 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
     public interface IInMemoryCategoryServiceBackendComponent
     {
         #region Entities
-        IInMemoryCategoryServiceBackendComponent UseCategories(IList<ICategory> categories);
+        IInMemoryCategoryServiceBackendComponent UseCategories(IList<Proto.Types.Category> categories);
         #endregion Entities
 
         #region Providers

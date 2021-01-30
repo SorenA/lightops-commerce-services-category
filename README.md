@@ -17,9 +17,9 @@ Provides gRPC services for integrations into other services.
 
 Protobuf service definitions located at [SorenA/lightops-commerce-proto](https://github.com/SorenA/lightops-commerce-proto).
 
-Category is implemented in `Domain.Services.Grpc.CategoryGrpcService`.
+Category is implemented in `Domain.GrpcServices.CategoryGrpcService`.
 
-Health is implemented in `Domain.Services.Grpc.HealthGrpcService`.
+Health is implemented in `Domain.GrpcServices.HealthGrpcService`.
 
 ### Health-check
 
@@ -29,7 +29,7 @@ Available services are as follows
 
 ```bash
 service = '' - System as a whole
-service = 'lightops.service.CategoryProtoService' - Category
+service = 'lightops.service.CategoryService' - Category
 ```
 
 For embedding a gRPC client for use with Kubernetes, see [grpc-ecosystem/grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe)
@@ -44,7 +44,6 @@ LightOps packages available on NuGet:
 
 - `LightOps.DependencyInjection`
 - `LightOps.CQRS`
-- `LightOps.Mapping`
 
 ## Using the service component
 
@@ -54,7 +53,6 @@ Register during startup through the `AddCategoryService(options)` extension on `
 services.AddLightOpsDependencyInjection(root =>
 {
     root
-        .AddMapping()
         .AddCqrs()
         .AddCategoryService(service =>
         {
@@ -78,9 +76,11 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
+The gRPC services use `ICommandDispatcher` & `IQueryDispatcher` from the `LightOps.CQRS` package to dispatch commands and queries, see configuration bellow.
+
 ### Configuration options
 
-A component backend is required, defining the query handlers tied to a data-source, see **Query handlers** section bellow for more.
+A component backend is required, implementing the command & query handlers tied to a data-source, see configuration overridables bellow.
 
 A custom backend, or one of the following standard backends can be used:
 
@@ -93,29 +93,20 @@ Using the `ICategoryServiceComponent` configuration, the following can be overri
 ```csharp
 public interface ICategoryServiceComponent
 {
-    #region Services
-    ICategoryServiceComponent OverrideHealthService<T>() where T : IHealthService;
-    ICategoryServiceComponent OverrideCategoryService<T>() where T : ICategoryService;
-    #endregion Services
-
-    #region Mappers
-    ICategoryServiceComponent OverrideCategoryProtoMapper<T>() where T : IMapper<ICategory, CategoryProto>;
-    ICategoryServiceComponent OverrideImageProtoMapper<T>() where T : IMapper<IImage, ImageProto>;
-    #endregion Mappers
-
     #region Query Handlers
-    ICategoryServiceComponent OverrideCheckCategoryHealthQueryHandler<T>() where T : ICheckCategoryHealthQueryHandler;
+    ICategoryServiceComponent OverrideCheckCategoryServiceHealthQueryHandler<T>() where T : ICheckCategoryServiceHealthQueryHandler;
 
     ICategoryServiceComponent OverrideFetchCategoriesByHandlesQueryHandler<T>() where T : IFetchCategoriesByHandlesQueryHandler;
     ICategoryServiceComponent OverrideFetchCategoriesByIdsQueryHandler<T>() where T : IFetchCategoriesByIdsQueryHandler;
     ICategoryServiceComponent OverrideFetchCategoriesBySearchQueryHandler<T>() where T : IFetchCategoriesBySearchQueryHandler;
     #endregion Query Handlers
+
+    #region Command Handlers
+    ICategoryServiceComponent OverridePersistCategoryCommandHandler<T>() where T : IPersistCategoryCommandHandler;
+    ICategoryServiceComponent OverrideDeleteCategoryCommandHandler<T>() where T : IDeleteCategoryCommandHandler;
+    #endregion Command Handlers
 }
 ```
-
-`ICategoryService` is used by the gRPC services and query the data using the `IQueryDispatcher` from the `LightOps.CQRS` package.
-
-The mappers are used for mapping the internal data structure to the versioned protobuf messages.
 
 ## Backend modules
 
@@ -128,7 +119,7 @@ root.AddCategoryService(service =>
 {
     service.UseInMemoryBackend(root, backend =>
     {
-        var categories = new List<ICategory>();
+        var categories = new List<Category>();
         // ...
 
         backend.UseCategories(categories);

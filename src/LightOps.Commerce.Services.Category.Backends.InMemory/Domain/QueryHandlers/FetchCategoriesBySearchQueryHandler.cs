@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LightOps.Commerce.Services.Category.Api.Enums;
-using LightOps.Commerce.Services.Category.Api.Models;
+using LightOps.Commerce.Proto.Services;
 using LightOps.Commerce.Services.Category.Api.Queries;
 using LightOps.Commerce.Services.Category.Api.QueryHandlers;
 using LightOps.Commerce.Services.Category.Api.QueryResults;
@@ -20,22 +19,25 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             _inMemoryCategoryProvider = inMemoryCategoryProvider;
         }
         
-        public Task<SearchResult<ICategory>> HandleAsync(FetchCategoriesBySearchQuery query)
+        public Task<SearchResult<Proto.Types.Category>> HandleAsync(FetchCategoriesBySearchQuery query)
         {
             var inMemoryQuery = _inMemoryCategoryProvider
                 .Categories?
-                .AsQueryable() ?? new EnumerableQuery<ICategory>(new List<ICategory>());
+                .AsQueryable() ?? new EnumerableQuery<Proto.Types.Category>(new List<Proto.Types.Category>());
+
+            // Filter out un-searchable
+            inMemoryQuery = inMemoryQuery.Where(x => x.IsSearchable);
 
             // Sort underlying list
             switch (query.SortKey)
             {
-                case CategorySortKey.Title:
+                case GetBySearchRequest.Types.SortKey.Title:
                     inMemoryQuery = inMemoryQuery.OrderBy(x => x.Title);
                     break;
-                case CategorySortKey.CreatedAt:
+                case GetBySearchRequest.Types.SortKey.CreatedAt:
                     inMemoryQuery = inMemoryQuery.OrderBy(x => x.CreatedAt);
                     break;
-                case CategorySortKey.UpdatedAt:
+                case GetBySearchRequest.Types.SortKey.UpdatedAt:
                     inMemoryQuery = inMemoryQuery.OrderBy(x => x.UpdatedAt);
                     break;
             }
@@ -55,11 +57,32 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             // Search in list
             if (!string.IsNullOrEmpty(query.SearchTerm))
             {
-                var searchTerm = query.SearchTerm.ToLowerInvariant();
-                inMemoryQuery = inMemoryQuery
-                    .Where(x =>
-                        (!string.IsNullOrWhiteSpace(x.Title) && x.Title.ToLowerInvariant().Contains(searchTerm))
-                        || (!string.IsNullOrWhiteSpace(x.Description) && x.Description.ToLowerInvariant().Contains(searchTerm)));
+                // Match language if requested
+                if (!string.IsNullOrEmpty(query.LanguageCode))
+                {
+                    inMemoryQuery = inMemoryQuery
+                        .Where(x =>
+                            x.Title.Any(l =>
+                                l.LanguageCode == query.LanguageCode
+                                && l.Value.ToLowerInvariant().Contains(query.SearchTerm,
+                                    StringComparison.InvariantCultureIgnoreCase))
+                            || x.Description.Any(l =>
+                                l.LanguageCode == query.LanguageCode
+                                && l.Value.ToLowerInvariant().Contains(query.SearchTerm,
+                                    StringComparison.InvariantCultureIgnoreCase)));
+                }
+                else
+                {
+                    // No language code, match all
+                    inMemoryQuery = inMemoryQuery
+                        .Where(x =>
+                            x.Title.Any(l =>
+                                l.Value.ToLowerInvariant().Contains(query.SearchTerm,
+                                    StringComparison.InvariantCultureIgnoreCase))
+                            || x.Description.Any(l =>
+                                l.Value.ToLowerInvariant().Contains(query.SearchTerm,
+                                    StringComparison.InvariantCultureIgnoreCase)));
+                }
             }
 
             // Get total results
@@ -82,7 +105,7 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             // Paginate - Take
             var results = inMemoryQuery
                 .Take(query.PageSize)
-                .Select(x => new CursorNodeResult<ICategory>
+                .Select(x => new CursorNodeResult<Proto.Types.Category>
                 {
                     Cursor = EncodeCursor(x.Id),
                     Node = x,
@@ -93,7 +116,7 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
             var startCursor = results.FirstOrDefault()?.Cursor;
             var endCursor = results.LastOrDefault()?.Cursor;
 
-            var searchResult = new SearchResult<ICategory>
+            var searchResult = new SearchResult<Proto.Types.Category>
             {
                 Results = results,
                 StartCursor = startCursor,

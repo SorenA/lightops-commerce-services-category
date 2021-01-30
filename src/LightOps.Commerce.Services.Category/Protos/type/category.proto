@@ -4,11 +4,11 @@ package lightops.type;
 
 option csharp_namespace = "LightOps.Commerce.Proto.Types";
 
-import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "Protos/type/image.proto";
+import "Protos/type/localized_string.proto";
 
-message CategoryProto {
+message Category {
   // Globally unique identifier, eg: gid://Category/1000
   string id = 1;
 
@@ -19,7 +19,7 @@ message CategoryProto {
   string handle = 3;
 
   // The title of the category
-  string title = 4;
+  repeated lightops.type.LocalizedString title = 4;
 
   // The url of the category
   string url = 5;
@@ -28,7 +28,7 @@ message CategoryProto {
   string type = 6;
 
   // The description of the category
-  string description = 7;
+  repeated lightops.type.LocalizedString description = 7;
 
   // The timestamp of category creation
   google.protobuf.Timestamp created_at = 8;
@@ -37,5 +37,8 @@ message CategoryProto {
   google.protobuf.Timestamp updated_at = 9;
 
   // The primary image of the category
-  lightops.type.ImageProto primary_image = 10;
+  lightops.type.Image primary_image = 10;
+
+  // Whether or not the category is searchable
+  bool is_searchable = 11;
 }

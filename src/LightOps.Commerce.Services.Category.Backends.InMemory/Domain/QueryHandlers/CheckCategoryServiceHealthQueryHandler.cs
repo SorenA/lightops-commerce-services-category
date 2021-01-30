@@ -6,16 +6,16 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHandlers
 {
-    public class CheckCategoryHealthQueryHandler : ICheckCategoryHealthQueryHandler
+    public class CheckCategoryServiceHealthQueryHandler : ICheckCategoryServiceHealthQueryHandler
     {
         private readonly IInMemoryCategoryProvider _inMemoryCategoryProvider;
 
-        public CheckCategoryHealthQueryHandler(IInMemoryCategoryProvider inMemoryCategoryProvider)
+        public CheckCategoryServiceHealthQueryHandler(IInMemoryCategoryProvider inMemoryCategoryProvider)
         {
             _inMemoryCategoryProvider = inMemoryCategoryProvider;
         }
 
-        public Task<HealthStatus> HandleAsync(CheckCategoryHealthQuery query)
+        public Task<HealthStatus> HandleAsync(CheckCategoryServiceHealthQuery query)
         {
             return _inMemoryCategoryProvider.Categories != null
                 ? Task.FromResult(HealthStatus.Healthy)

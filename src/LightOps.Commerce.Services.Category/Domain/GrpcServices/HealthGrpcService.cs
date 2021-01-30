@@ -3,23 +3,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using LightOps.Commerce.Proto.Grpc.Health;
-using LightOps.Commerce.Services.Category.Api.Services;
+using LightOps.Commerce.Services.Category.Api.Queries;
+using LightOps.CQRS.Api.Services;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 
-namespace LightOps.Commerce.Services.Category.Domain.Services.Grpc
+namespace LightOps.Commerce.Services.Category.Domain.GrpcServices
 {
     public class HealthGrpcService : Health.HealthBase
     {
         private readonly ILogger<HealthGrpcService> _logger;
-        private readonly IHealthService _healthService;
+        private readonly IQueryDispatcher _queryDispatcher;
 
         public HealthGrpcService(
             ILogger<HealthGrpcService> logger,
-            IHealthService healthService)
+            IQueryDispatcher queryDispatcher)
         {
             _logger = logger;
-            _healthService = healthService;
+            _queryDispatcher = queryDispatcher;
         }
 
         public override async Task<HealthCheckResponse> Check(HealthCheckRequest request, ServerCallContext context)
@@ -30,7 +31,7 @@ namespace LightOps.Commerce.Services.Category.Domain.Services.Grpc
                 var statusMap = new Dictionary<string, HealthCheckResponse.Types.ServingStatus>();
 
                 // Check all services
-                statusMap.Add("lightops.service.CategoryProtoService", await GetCategoryServiceStatusAsync());
+                statusMap.Add("lightops.service.CategoryService", await GetCategoryServiceStatusAsync());
 
                 return new HealthCheckResponse
                 {
@@ -43,7 +44,7 @@ namespace LightOps.Commerce.Services.Category.Domain.Services.Grpc
             var servingStatus = HealthCheckResponse.Types.ServingStatus.Unknown;
             switch (request.Service)
             {
-                case "lightops.service.CategoryProtoService":
+                case "lightops.service.CategoryService":
                     servingStatus = await GetCategoryServiceStatusAsync();
                     break;
                 default:
@@ -58,7 +59,9 @@ namespace LightOps.Commerce.Services.Category.Domain.Services.Grpc
 
         private async Task<HealthCheckResponse.Types.ServingStatus> GetCategoryServiceStatusAsync()
         {
-            return await _healthService.CheckCategory() == HealthStatus.Healthy
+            var healthStatus = await _queryDispatcher.DispatchAsync<CheckCategoryServiceHealthQuery, HealthStatus>(new CheckCategoryServiceHealthQuery());
+
+            return healthStatus == HealthStatus.Healthy
                 ? HealthCheckResponse.Types.ServingStatus.Serving
                 : HealthCheckResponse.Types.ServingStatus.NotServing;
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LightOps.Commerce.Services.Category.Api.Models;
 using LightOps.Commerce.Services.Category.Backends.InMemory.Api.Providers;
 using LightOps.Commerce.Services.Category.Backends.InMemory.Domain.Providers;
 using LightOps.DependencyInjection.Api.Configuration;
@@ -20,7 +19,7 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Configuration
         }
 
         #region Entities
-        public IInMemoryCategoryServiceBackendComponent UseCategories(IList<ICategory> categories)
+        public IInMemoryCategoryServiceBackendComponent UseCategories(IList<Proto.Types.Category> categories)
         {
             // Populate in-memory providers
             _providers[Providers.InMemoryCategoryProvider].ImplementationType = null;
