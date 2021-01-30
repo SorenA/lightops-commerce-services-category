@@ -1,4 +1,4 @@
-﻿using LightOps.Commerce.Proto.Services;
+﻿using LightOps.Commerce.Proto.Services.Category;
 using LightOps.CQRS.Api.Queries;
 
 namespace LightOps.Commerce.Services.Category.Api.Queries
