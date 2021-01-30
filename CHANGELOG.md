@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased
+
+## [0.5.1] - 2021-01-31
+
+### Changed
+
+- **Breaking** - Change protobuf service namespace to prevent message clashes when using multiple services
 
 ## [0.5.0] - 2021-01-30
 
@@ -105,7 +111,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Health service using CQRS for status checks
 - In-memory backend providing default query handlers
 
-[unreleased]: https://github.com/SorenA/lightops-commerce-services-category/compare/0.5.0...develop
+[unreleased]: https://github.com/SorenA/lightops-commerce-services-category/compare/0.5.1...develop
+[0.5.1]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.5.1
 [0.5.0]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.5.0
 [0.4.2]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.4.2
 [0.4.1]: https://github.com/SorenA/lightops-commerce-services-category/tree/0.4.1
