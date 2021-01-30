@@ -28,10 +28,11 @@ namespace LightOps.Commerce.Services.Category.Domain.GrpcServices
             if (string.IsNullOrEmpty(request.Service))
             {
                 // Perform overall health-check
-                var statusMap = new Dictionary<string, HealthCheckResponse.Types.ServingStatus>();
-
-                // Check all services
-                statusMap.Add("lightops.service.CategoryService", await GetCategoryServiceStatusAsync());
+                var statusMap = new Dictionary<string, HealthCheckResponse.Types.ServingStatus>
+                {
+                    // Check all services
+                    { "lightops.service.CategoryService", await GetCategoryServiceStatusAsync() },
+                };
 
                 return new HealthCheckResponse
                 {
