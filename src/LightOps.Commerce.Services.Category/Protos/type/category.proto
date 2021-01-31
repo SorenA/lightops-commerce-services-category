@@ -26,7 +26,7 @@ message Category {
 
   // The type of the category
   string type = 6;
-
+  
   // The localized descriptions of the category
   repeated lightops.type.LocalizedString descriptions = 7;
 
@@ -41,4 +41,14 @@ message Category {
 
   // Whether or not the category is searchable
   bool is_searchable = 11;
+
+  // The sort order of the category when no sorting key is specified
+  int64 sort_order = 12;
+}
+
+enum CategorySortKey {
+  DEFAULT = 0;
+  TITLE = 1;
+  CREATED_AT = 2;
+  UPDATED_AT = 3;
 }
