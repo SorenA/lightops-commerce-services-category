@@ -18,9 +18,13 @@ namespace LightOps.Commerce.Services.Category.Backends.InMemory.Domain.QueryHand
 
         public Task<IList<Proto.Types.Category>> HandleAsync(FetchCategoriesByHandlesQuery query)
         {
+            // Match any localized handle
             var categories = _inMemoryCategoryProvider
                 .Categories?
-                .Where(c => query.Handles.Contains(c.Handle))
+                .Where(c => c.Handles
+                    .Select(ls => ls.Value)
+                    .Intersect(query.Handles)
+                    .Any())
                 .ToList();
 
             return Task.FromResult<IList<Proto.Types.Category>>(categories ?? new List<Proto.Types.Category>());
